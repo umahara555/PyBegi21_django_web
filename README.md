@@ -1,4 +1,7 @@
 # インストール
+
+必要なライブラリ等です．Anaconda環境の方は，適宜`pip`を`conda`に置き換えてください．
+
 ```
 pip install django Pillow django-imagekit
 ```
@@ -25,7 +28,7 @@ $ python manage.py runserver
 実行出来たら，ブラウザで`http://127.0.0.1:8000/`にアクセスしてみましょう．
 (ロケットが表示されたら成功です！)
 
-`CONTROL-C`で停止します．
+コマンドラインで`CONTROL-C`することで停止できます．
 
 ## 新規アプリを作成する.
 
@@ -43,13 +46,13 @@ $ python manage.py startapp photos
 
 `mysite`直下に，`media`という名前でディレクトリを作成する．
 
-#### settings.py
+
 
 `mysite/settings.py`に設定を追加します．
 
 `INSTALLED_APPS`に`'photos.apps.PhotosConfig',`を追加します．
 
-先ほど作成した`media`ディレクトリを使用する為の設定を追加します．
+先ほど作成した`media`ディレクトリを使用する為の設定も追加します．
 ```
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -57,6 +60,7 @@ MEDIA_URL = '/media/'
 
 この様な感じです．
 
+#### settings.py
 ```
 INSTALLED_APPS = [
     'photos.apps.PhotosConfig',
@@ -74,9 +78,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 ```
 
-#### urls.py
-
 `mysite/urls.py`にも設定を追加します．
+
+#### urls.py
 
 ```
 from django.conf import settings
@@ -86,9 +90,9 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
-#### models.py
-
 `photos/models.py`でモデルの定義を行います．
+
+#### models.py
 
 ```
 class Photo(models.Model):
@@ -102,9 +106,9 @@ $ python manage.py makemigrations photos
 $ python manage.py migrate
 ```
 
-#### forms.py
-
 `photos`直下に`forms.py`を作成し，フォームの定義を行います．
+
+#### forms.py
 
 ```
 from django.forms import ModelForm
@@ -117,9 +121,9 @@ class PhotoForm(ModelForm):
 
 ```
 
-#### views.py
-
 `photos/views.py`でviewの定義を行います．
+
+#### views.py
 
 ```
 from django.views.generic import ListView, CreateView
@@ -139,8 +143,9 @@ class PhotoCreateView(CreateView):
 
 ```
 
-#### index.html
 `phots/templates/photos/index.html` を作成します．
+
+#### index.html
 
 ```
 {% for p in photo_list %}
@@ -150,8 +155,9 @@ class PhotoCreateView(CreateView):
 {% endfor %}
 ```
 
-#### form.html
 `phots/templates/photos/form.html` を作成します．
+
+#### form.html
 
 ```
 <form method="POST" enctype="multipart/form-data">
@@ -164,9 +170,9 @@ class PhotoCreateView(CreateView):
 
 ```
 
-#### mysite/urls.py
+photoアプリへのpath設定します．
 
-photoアプリへのurlを作成します．
+#### mysite/urls.py
 
 ```
 from django.urls import include
@@ -178,9 +184,9 @@ urlpatterns = [
 
 ```
 
-#### photos/urls.py
-
 `photos`直下に`urls.py`を作成します．．
+
+#### photos/urls.py
 
 ```
 from django.urls import path
@@ -200,7 +206,7 @@ urlpatterns = [
 `http://127.0.0.1:8000/create`にアクセスすることで，画像の投稿が行えます．
 
 
-### 改良1
+## 改良1
 
 一応画像の投稿は出来ましたが，投稿された画像がサイズもそのままの状態で表示されてしまいます．小さな画像なら良いかもしれませんが，大きな画像だと画面一杯に表示され大変です．
 
@@ -242,13 +248,13 @@ class Photo(models.Model):
 `$ python manage.py runserver`して，`http://127.0.0.1:8000/`にアクセスしてみましょう．
 
 
-### 改良2
+## 改良2
 
 現在画像は全て左端によっていると思います．このままでは，寂しいので簡易に見た目を整えてみます．
 
-#### index.css
-
 `photos/static/photos/index.css`を作成します．
+
+#### index.css
 
 ```
 body {
@@ -297,11 +303,9 @@ header a {
 
 ```
 
-### index.html
-
-次の様に編集します．
-
 `{% load static %} <link  ... href="{% static 'photos/index.css' %}>`の部分で先程作成した`index.css`を読み込んでいます．
+
+#### index.html
 
 ```
 <!DOCTYPE html>
@@ -330,5 +334,5 @@ header a {
 </body>
 </html>
 ```
-`$ python manage.py runserver`して，`http://127.0.0.1:8000/`にアクセスしてみましょう．
 
+`$ python manage.py runserver`して，`http://127.0.0.1:8000/`にアクセスしてみましょう．
