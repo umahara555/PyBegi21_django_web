@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'photos/index.css' %}">
+    <title>Photos</title>
+</head>
+<body>
+    <div class="main">
+        <header>
+            <h1>Photos</h1>
+            <div class="header-nav">
+                <a href="{% url 'form' %}">投稿</a>
+            </div>
+        </header>
+        <div class="grid-container">
+            {% for p in photo_list%}
+                <div class="grid-item">
+                    <img src="{{ p.photo_thumbnail.url }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

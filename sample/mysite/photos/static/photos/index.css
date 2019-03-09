@@ -1,0 +1,43 @@
+body {
+  background-color: #fafafa;
+}
+
+.main {
+  width: 818px;
+  margin: 0 auto;
+}
+
+header {
+  overflow: hidden;
+  margin: 16px auto;
+}
+
+header h1 {
+  float: left;
+  margin: 0;
+}
+
+header .header-nav {
+  float: right;
+}
+
+header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.grid-container {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-item {
+  border: 1px solid #e6e6e6;
+  width: 260px;
+  height: 260px;
+}
