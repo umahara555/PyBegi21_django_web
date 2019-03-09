@@ -212,9 +212,27 @@ urlpatterns = [
 
 投稿された画像をサイズ変更し，各画像サイズも統一して表示される様にしてみましょう．
 
-#### models.py
+設定を追加します．
+`settings.py`の`INSTALLED_APPS`に`'imagekit'`を追加します．
 
+#### settings.py
+```
+INSTALLED_APPS = [
+    'photos.apps.PhotosConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'imagekit',
+]
+```
+
+モデルを編集します．
 `ImageSpecField()`で受け取った画像を`260px*260px`のサイズに切り抜いて保存しています．
+
+#### models.py
 
 ```
 from django.db import models
@@ -231,9 +249,9 @@ class Photo(models.Model):
                             )
 ```
 
-#### index.html
-
 `p.photo.url` を `p.photo_thumbnail.url` に変更します．
+
+#### index.html
 
 ```
 {% for p in photo_list %}
